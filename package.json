@@ -1,0 +1,25 @@
+{
+  "name": "teamuseraccounts",
+  "version": "1.0.0",
+  "description": "An Object Oriented Programming, command line application that accepts user input. It creates classes for each type of team member, exports them and stores all the information about each team member, in a HTML structure.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Songbird1978/TeamUserAccounts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Songbird1978/TeamUserAccounts/issues"
+  },
+  "homepage": "https://github.com/Songbird1978/TeamUserAccounts#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.2.4",
+    "jest": "^29.4.3"
+  }
+}
