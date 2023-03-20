@@ -9,7 +9,9 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
+const { runInThisContext } = require("vm");
 
+const team = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -40,16 +42,6 @@ const managerQuestions = [
         //validation to ensure input  by user
         validate: (value) => { if (value) { return true } else { return "Please input your office number." } },
     },
-];
-
-const addNewTeamMemberList = [
-    {
-        type: 'list',
-        message: 'Add a team member?',
-        name: 'memberChoice',
-        //choices to ensure input by user
-        choices: ['Add Engineer', 'Add Intern', 'Finish building the Team']
-    }
 ];
 
 const newInternQuestions = [
@@ -84,7 +76,7 @@ const newInternQuestions = [
 const newEngineerQuestions = [
     {
         type: 'input',
-        message: 'What is your full name?',
+        message: 'What is the Engineer full name?',
         name: 'name',
         //validation to ensure input  by user
         validate: (value) => { if (value) { return true } else { return "Please input your name." } },
@@ -111,24 +103,58 @@ const newEngineerQuestions = [
 
 ];
 
+const addNewTeamMemberList = [
+    {
+        type: 'list',
+        message: 'Add a team member?',
+        name: 'memberChoice',
+        //choices to ensure input by user
+        choices: ['Add Engineer', 'Add Intern', 'Finish building the Team']
+    }
+];
+
+function promptManager() {
+    inquirer.prompt(managerQuestions)
+
+        .then((responseManager) => {
+            console.log(responseManager);
+            const manager = new Manager(responseManager);
+            team.push(manager);
+            console.log(team);
+            addTeamMember();
+        });
+
+
+};
+// function call to ask Manager questions
+promptManager();
+
+
+
 //function to initialize inquirer to add a team member
 
 function addTeamMember() {
 
     inquirer.prompt(addNewTeamMemberList)
+        .then((choice) => {
+            console.log(choice);
 
-    switch (responseTeamMember.memberChoice) {
-        case "Add Engineer":
-            addNewEngineer();
-            break;
-        case "Add Intern":
-            addNewIntern();
-            break;
-        case "Finish Building the Team":
-            console.log('You chose to Finish building the Team');
-            break;
+        });
+    if (this.memberChoice === [0]) {
+        addNewEngineer();
+        return;
+    } if (this.memberChoice === [1]) {
+        addNewIntern();
+        return;
+    } else {
+        render.team;
+        return;
+
     };
+
+
 };
+
 
 function addNewIntern() {
     inquirer.prompt(newInternQuestions)
@@ -136,7 +162,7 @@ function addNewIntern() {
         .then((responseIntern) => {
             console.log(responseIntern);
             new Intern(responseIntern);
-            AddTeamMember();
+            addTeamMember();
         });
 };
 
@@ -149,20 +175,6 @@ function addNewEngineer() {
             AddTeamMember();
         });
 };
-
-function promptManager() {
-    inquirer.prompt(managerQuestions)
-
-        .then((responseManager) => {
-            console.log(responseManager);
-            new Manager(responseManager);
-            addTeamMember();
-        });
-
-
-};
-// function call to ask Manager questions
-promptManager();
 
 
 
